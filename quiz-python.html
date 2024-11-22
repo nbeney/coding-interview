@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview questions - Python</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/shortcuts.css" rel="stylesheet">
+    <link href="styles/quiz.css" rel="stylesheet">
+</head>
+
+<body class="container">
+    <h1>Python interview questions</h1>
+
+    <my-quiz>
+        <my-pair>
+            <my-question>What is the difference between lists and tuples?
+                <pre>
+    my_list = [1, 2, 3]  # Mutable
+    my_tuple = (1, 2, 3)  # Immutable</pre>
+            </my-question>
+            <my-answer>Lists are mutable (can be modified), use square brackets, and support methods like append().
+                Tuples are immutable (cannot be changed after creation), use parentheses, and are generally more
+                memory-efficient and slightly faster. Tuples can be used as dictionary keys, while lists
+                cannot.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain list comprehensions.
+                <pre>
+    # List comprehension
+    squares = [x**2 for x in range(10)]
+    
+    # Equivalent traditional loop
+    squares = []
+    for x in range(10):
+        squares.append(x**2)</pre>
+            </my-question>
+            <my-answer>List comprehensions provide a concise way to create lists based on existing lists or other
+                iterables. They combine mapping and filtering in a single line, often replacing multi-line for loops.
+                They are more readable and typically faster than traditional loop constructions.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are decorators?
+                <pre>
+    def log_decorator(func):
+        def wrapper(*args, **kwargs):
+            print(f"Calling {func.__name__}")
+            return func(*args, **kwargs)
+        return wrapper
+    
+    @log_decorator
+    def example_function():
+        pass</pre>
+            </my-question>
+            <my-answer>Decorators are functions that modify other functions, allowing metaprogramming. They wrap a
+                function, adding behavior before or after the original function call. The @decorator syntax is syntactic
+                sugar for func = decorator(func). Common uses include logging, timing, authentication, and
+                caching.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the Global Interpreter Lock (GIL).
+                <pre>
+    import threading
+    
+    def cpu_bound_task():
+        # GIL prevents true multi-threading for CPU-bound tasks
+        pass</pre>
+            </my-question>
+            <my-answer>The Global Interpreter Lock is a mechanism in CPython that prevents multiple native threads from
+                executing Python bytecodes simultaneously. This means only one thread can execute Python code at a time,
+                limiting true parallelism for CPU-bound tasks. For I/O-bound tasks, the GIL is less problematic, and
+                multiprocessing can be used for CPU-intensive work.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are *args and **kwargs?
+                <pre>
+    def flexible_function(*args, **kwargs):
+        print(args)    # Tuple of positional arguments
+        print(kwargs)  # Dictionary of keyword arguments</pre>
+            </my-question>
+            <my-answer>*args allows a function to accept any number of positional arguments as a tuple. **kwargs allows
+                accepting any number of keyword arguments as a dictionary. They provide flexibility in function
+                definitions, enabling functions to handle variable numbers of arguments without explicit
+                specification.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the difference between deep and shallow copy.
+                <pre>
+    import copy
+    
+    original = [1, [2, 3]]
+    shallow_copy = copy.copy(original)
+    deep_copy = copy.deepcopy(original)</pre>
+            </my-question>
+            <my-answer>A shallow copy creates a new object but references the same nested objects. A deep copy creates a
+                completely independent copy of an object and all its nested objects. Shallow copies are faster but can
+                lead to unexpected mutations, while deep copies ensure complete isolation but are more memory and
+                computationally intensive.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are generators?
+                <pre>
+    def fibonacci_generator():
+        a, b = 0, 1
+        while True:
+            yield a
+            a, b = b, a + b</pre>
+            </my-question>
+            <my-answer>Generators are functions that use yield to return a generator iterator. They generate values
+                on-the-fly, allowing memory-efficient iteration over large datasets. Unlike lists, generators compute
+                values lazily, creating them only when requested, which saves memory and can improve
+                performance.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain context managers (with statement).
+                <pre>
+    with open('file.txt', 'r') as file:
+        content = file.read()  # File automatically closed</pre>
+            </my-question>
+            <my-answer>Context managers handle resource setup and teardown automatically. The 'with' statement ensures
+                proper acquisition and release of resources like file handles, network connections, or locks. They
+                implement __enter__() and __exit__() methods, guaranteeing resource cleanup even if exceptions
+                occur.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are metaclasses?
+                <pre>
+    class MetaExample(type):
+        def __new__(cls, name, bases, attrs):
+            # Customize class creation
+            return super().__new__(cls, name, bases, attrs)</pre>
+            </my-question>
+            <my-answer>Metaclasses are classes for creating classes, allowing customization of class creation
+                process. They define how a class behaves, enabling dynamic class modifications, implementing design
+                patterns, and creating complex class hierarchies. Python's class keyword uses type as the default
+                metaclass.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the Global and Nonlocal keywords.
+                <pre>
+    x = 10  # Global scope
+    
+    def outer():
+        y = 20  # Nonlocal to inner function
+        def inner():
+            global x
+            nonlocal y
+            x = 30
+            y = 40</pre>
+            </my-question>
+            <my-answer>'global' allows modification of global variables inside a function. 'nonlocal' enables
+                modification of variables in the nearest enclosing scope that isn't global. They help manage variable
+                scoping and mutability in nested functions, though overuse can lead to less readable code.</my-answer>
+        </my-pair>
+    </my-quiz>
+</body>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="scripts/shortcuts.js"></script>
+<script src="scripts/quiz.js"></script>
+
+</html>

@@ -1,0 +1,40 @@
+:root {
+    --normal-bg-color: #e8e8e8;
+    --highlight-bg-color: color-mix(in srgb, var(--normal-bg-color), black 15%);
+}
+
+my-question {
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--normal-bg-color);
+    padding: 10px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+my-question:hover {
+    background-color: var(--highlight-bg-color);
+}
+
+my-quiz pre {
+    background-color: white;
+    padding: 10px;
+    border: 1px solid darkgray;
+}
+
+my-answer {
+    padding: 10px;
+}
+
+my-pair.focused {
+    border-left: 3px solid black;
+}
+
+my-pair.focused my-question {
+    background-color: var(--highlight-bg-color);
+}
+
+@media print {
+    .alert {
+        display: none;
+    }
+}

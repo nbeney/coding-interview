@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview questions - C++</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/shortcuts.css" rel="stylesheet">
+    <link href="styles/quiz.css" rel="stylesheet">
+</head>
+
+<body class="container">
+    <h1>C++ interview questions</h1>
+
+    <my-quiz>
+        <my-pair>
+            <my-question>What is the difference between new and malloc()?
+                <pre>
+int* ptr1 = new int(10);
+int* ptr2 = (int*)malloc(sizeof(int));</pre>
+            </my-question>
+            <my-answer>new is a C++ operator that calls the object's constructor, handles memory allocation, and can be
+                overloaded. malloc() is a C function that simply allocates raw memory without calling constructors. new
+                returns a typed pointer, while malloc() returns a void* that needs casting. new throws an exception on
+                failure, while malloc() returns NULL.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the rule of three/five in C++.
+                <pre>
+class Resource {
+    // Rule of three/five methods
+    ~Resource();
+    Resource(const Resource&);
+    Resource& operator=(const Resource&);
+}</pre>
+            </my-question>
+            <my-answer>The rule of three states that if a class defines any of destructor, copy constructor, or copy
+                assignment operator, it should probably explicitly define all three. The rule of five extends this to
+                include move constructor and move assignment operator. This ensures proper resource management and
+                prevents memory leaks.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is the difference between reference and pointer?
+                <pre>
+int x = 10;
+int& ref = x;  // Reference
+int* ptr = &x; // Pointer</pre>
+            </my-question>
+            <my-answer>References must be initialized at declaration, cannot be null, and cannot be reassigned to refer
+                to another object. Pointers can be reassigned, can be null, and require explicit dereferencing.
+                References provide a safer, more convenient alternative to pointers in many situations.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain virtual functions and polymorphism.
+                <pre>
+class Base {
+    virtual void show() { cout << "Base"; }
+};
+class Derived : public Base {
+    void show() override { cout << "Derived"; }
+};</pre>
+            </my-question>
+            <my-answer>Virtual functions enable runtime polymorphism, allowing a derived class to override a base class
+                method. The 'override' keyword ensures compile-time checking. When a virtual function is called through
+                a base class pointer or reference, the most derived implementation is invoked, enabling dynamic method
+                dispatch.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are smart pointers?
+                <pre>
+std::unique_ptr<int> ptr1(new int(10));
+std::shared_ptr<int> ptr2 = std::make_shared<int>(20);</pre>
+            </my-question>
+            <my-answer>Smart pointers are C++ standard library classes that manage dynamic memory automatically.
+                unique_ptr provides exclusive ownership, automatically deleting the resource when it goes out of scope.
+                shared_ptr allows multiple pointers to share ownership, using reference counting to manage memory. They
+                prevent memory leaks and reduce manual memory management errors.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain template metaprogramming.
+                <pre>
+template <int N>
+struct Factorial {
+    static const int value = N * Factorial<N-1>::value;
+};
+
+template <>
+struct Factorial<0> {
+    static const int value = 1;
+};</pre>
+            </my-question>
+            <my-answer>Template metaprogramming allows compile-time computation and code generation. It enables writing
+                generic, type-safe code that can be resolved at compile-time. The example shows a compile-time recursive
+                factorial calculation using template specialization, which resolves the computation during compilation
+                rather than runtime.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is move semantics?
+                <pre>
+std::vector<int> createVector() {
+    std::vector<int> v = {1, 2, 3};
+    return v;  // Move semantics in action
+}</pre>
+            </my-question>
+            <my-answer>Move semantics allow efficient transfer of resources between objects, avoiding deep copying.
+                Using rvalue references (&&), it transfers ownership of resources like dynamically allocated memory.
+                This reduces unnecessary copying, improving performance, especially with large objects or
+                containers.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Describe lambda expressions.
+                <pre>
+auto add = [](int a, int b) { return a + b; };
+std::vector<int> nums = {1, 2, 3, 4};
+std::transform(nums.begin(), nums.end(), nums.begin(), 
+                [](int n) { return n * 2; });</pre>
+            </my-question>
+            <my-answer>Lambda expressions are inline, anonymous function objects that can capture local variables. They
+                provide a concise way to write function objects, often used with STL algorithms. Lambdas can capture
+                variables by value or reference, making them powerful for creating quick, context-specific
+                functions.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is the difference between struct and class in C++?
+                <pre>
+struct Point { int x, y; };
+class Circle {
+private:
+    Point center;
+    double radius;
+};</pre>
+            </my-question>
+            <my-answer>The only difference is the default access specifier: struct members are public by default, while
+                class members are private by default. Functionally, they are identical. Structs are typically used for
+                passive objects with public access, while classes are used for more complex objects with
+                encapsulation.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain exception handling in C++.
+                <pre>
+try {
+    if (error) throw std::runtime_error("Something went wrong");
+} catch (const std::exception& e) {
+    std::cerr << e.what() << std::endl;
+} catch (...) {
+    // Catch all other exceptions
+}</pre>
+            </my-question>
+            <my-answer>C++ exception handling uses try, catch, and throw keywords. Exceptions allow separating
+                error-handling code from normal code. Multiple catch blocks can handle different exception types. The
+                catch-all (...) handler can capture any unhandled exception. Exceptions propagate up the call stack
+                until caught or terminate the program.</my-answer>
+        </my-pair>
+    </my-quiz>
+</body>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="scripts/shortcuts.js"></script>
+<script src="scripts/quiz.js"></script>
+
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview questions - SQL</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/shortcuts.css" rel="stylesheet">
+    <link href="styles/quiz.css" rel="stylesheet">
+</head>
+
+<body class="container">
+    <h1>SQL interview questions</h1>
+
+    <my-quiz>
+        <my-pair>
+            <my-question>What is the difference between INNER JOIN and LEFT JOIN?
+                <pre>
+    -- INNER JOIN
+    SELECT * FROM table1 
+    INNER JOIN table2 ON table1.id = table2.id;
+    
+    -- LEFT JOIN
+    SELECT * FROM table1 
+    LEFT JOIN table2 ON table1.id = table2.id;</pre>
+            </my-question>
+            <my-answer>INNER JOIN returns only matching rows from both tables. LEFT JOIN returns all rows from the left
+                table and matching rows from the right table. If no match exists, right table columns will contain NULL.
+                LEFT JOIN preserves all records from the primary table, while INNER JOIN only returns intersecting
+                records.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the difference between GROUP BY and HAVING clauses.
+                <pre>
+    SELECT department, AVG(salary) 
+    FROM employees
+    GROUP BY department
+    HAVING AVG(salary) > 50000;</pre>
+            </my-question>
+            <my-answer>GROUP BY is used to group rows with similar values, typically with aggregate functions. HAVING
+                filters groups after aggregation, while WHERE filters rows before aggregation. WHERE works on individual
+                rows, HAVING works on grouped results. In the example, it calculates average salary per department and
+                filters departments with average salary over 50000.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are ACID properties in database transactions?
+                <pre>
+    BEGIN TRANSACTION;
+    UPDATE accounts SET balance = balance - 100 
+    WHERE account_id = 1;
+    COMMIT;</pre>
+            </my-question>
+            <my-answer>ACID stands for Atomicity (all-or-nothing), Consistency (data remains valid), Isolation
+                (concurrent transactions don't interfere), and Durability (committed changes persist). Ensures database
+                transactions are processed reliably, maintaining data integrity even in case of errors, system failures,
+                or concurrent access.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the difference between Primary and Foreign Keys.
+                <pre>
+    CREATE TABLE orders (
+        order_id INT PRIMARY KEY,
+        customer_id INT,
+        FOREIGN KEY (customer_id) REFERENCES customers(id)
+    );</pre>
+            </my-question>
+            <my-answer>Primary Key uniquely identifies each record in a table and cannot contain NULL values. Foreign
+                Key creates a link between two tables, referencing the Primary Key of another table. In the example,
+                order_id is a Primary Key, while customer_id is a Foreign Key linking to customers table.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are indexes and why are they used?
+                <pre>
+    CREATE INDEX idx_lastname 
+    ON employees (last_name);</pre>
+            </my-question>
+            <my-answer>Indexes improve query performance by creating a data structure that allows faster data retrieval.
+                They work like a book's index, enabling quick lookup without scanning entire tables. However, they
+                consume additional storage and can slow down insert/update operations. Best used on columns frequently
+                used in WHERE, JOIN, and ORDER BY clauses.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain window functions.
+                <pre>
+    SELECT 
+        employee_name, 
+        department, 
+        salary,
+        AVG(salary) OVER (PARTITION BY department) as dept_avg
+    FROM employees;</pre>
+            </my-question>
+            <my-answer>Window functions perform calculations across a set of rows related to the current row. They don't
+                reduce the number of rows returned. OVER clause defines the window or partition. In the example, it
+                calculates the average salary for each department while keeping individual row details.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is normalization?
+                <pre>
+    -- First Normal Form Example
+    CREATE TABLE orders (
+        order_id INT PRIMARY KEY,
+        customer_name VARCHAR(100),
+        product_list VARCHAR(255)
+    );</pre>
+            </my-question>
+            <my-answer>Normalization is the process of organizing database schema to reduce data redundancy and improve
+                data integrity. It involves breaking down large tables into smaller, more focused tables. Different
+                normal forms (1NF, 2NF, 3NF) define progressive levels of database organization, minimizing duplicate
+                data and potential anomalies.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the difference between UNION and JOIN.
+                <pre>
+    -- UNION
+    SELECT name FROM employees
+    UNION
+    SELECT name FROM contractors;
+    
+    -- JOIN
+    SELECT e.name, d.department_name 
+    FROM employees e
+    JOIN departments d ON e.dept_id = d.id;</pre>
+            </my-question>
+            <my-answer>UNION combines result sets vertically, removing duplicates. JOIN combines tables horizontally
+                based on a related column. UNION requires same number and type of columns, JOIN matches rows based on a
+                common key. UNION operates on rows, JOIN operates on columns across related tables.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are stored procedures?
+                <pre>
+    CREATE PROCEDURE GetEmployeesByDept
+    @department VARCHAR(50)
+    AS
+    BEGIN
+        SELECT * FROM employees 
+        WHERE department = @department
+    END;</pre>
+            </my-question>
+            <my-answer>Stored procedures are precompiled SQL statements stored in the database. They can accept
+                parameters, contain logic, and return results. Advantages include improved performance, enhanced
+                security, and code reusability. They encapsulate complex queries and business logic within the database
+                management system.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the difference between clustered and non-clustered indexes.
+                <pre>
+    -- Clustered Index (typically Primary Key)
+    CREATE CLUSTERED INDEX IX_Employees
+    ON Employees(EmployeeID);
+    
+    -- Non-Clustered Index
+    CREATE NONCLUSTERED INDEX IX_LastName
+    ON Employees(LastName);</pre>
+            </my-question>
+            <my-answer>Clustered indexes determine the physical order of data storage. Each table can have only one
+                clustered index, typically the primary key. Non-clustered indexes are separate structures that point to
+                data locations, allowing multiple non-clustered indexes per table. Clustered indexes are faster for
+                range queries, while non-clustered provide additional lookup paths.</my-answer>
+        </my-pair>
+    </my-quiz>
+</body>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="scripts/shortcuts.js"></script>
+<script src="scripts/quiz.js"></script>
+
+</html>

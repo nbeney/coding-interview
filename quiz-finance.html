@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview questions - Finance</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/shortcuts.css" rel="stylesheet">
+    <link href="styles/quiz.css" rel="stylesheet">
+</head>
+
+<body class="container">
+    <h1>Finance interview questions</h1>
+
+    <my-quiz>
+        <my-pair>
+            <my-question>Define a European call option and explain its characteristics.
+                <pre>
+    Option Details:
+    - Strike Price: $50
+    - Expiration: 3 months
+    - Current Stock Price: $45</pre>
+            </my-question>
+            <my-answer>A European call option gives the holder the right, but not the obligation, to buy an underlying
+                asset at a predetermined strike price on the expiration date. Unlike American options, European options
+                can only be exercised at expiration. Profit potential is unlimited, while the maximum loss is limited to
+                the option premium paid.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is put-call parity in options pricing?
+                <pre>
+    C + PV(K) = P + S
+    Where:
+    C = Call Price
+    P = Put Price
+    S = Current Stock Price
+    K = Strike Price
+    PV(K) = Present Value of Strike Price</pre>
+            </my-question>
+            <my-answer>Put-call parity is a fundamental principle in options pricing that establishes a relationship
+                between the prices of European put and call options with the same strike price and expiration. It
+                demonstrates that a portfolio of a call and risk-free bond is equivalent to a portfolio of a put and the
+                underlying stock, preventing arbitrage opportunities.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain Black-Scholes options pricing model assumptions.
+                <pre>
+    Key Assumptions:
+    - Log-normal distribution of stock prices
+    - No transaction costs
+    - Risk-free interest rate is constant</pre>
+            </my-question>
+            <my-answer>The Black-Scholes model assumes: 1) Stock prices follow a geometric Brownian motion, 2) No
+                transaction costs or taxes, 3) Risk-free rate and volatility are constant, 4) No dividends during the
+                option's life, 5) Options are European-style, 6) Markets are efficient and frictionless. These
+                simplifying assumptions help create a mathematical framework for options valuation.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Define a zero-coupon bond and its key characteristics.
+                <pre>
+    Bond Parameters:
+    - Face Value: $1,000
+    - Maturity: 5 years
+    - Yield to Maturity: 6%</pre>
+            </my-question>
+            <my-answer>A zero-coupon bond does not pay periodic interest (coupons). Instead, it is sold at a discount to
+                face value and redeemed at full face value at maturity. The difference between purchase price and face
+                value represents the investor's return. These bonds are sensitive to interest rate changes and have
+                higher price volatility compared to coupon-bearing bonds.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain bond duration and its significance.
+                <pre>
+    Bond Characteristics:
+    - Coupon Rate: 5%
+    - Maturity: 10 years
+    - Current Yield: 4.5%</pre>
+            </my-question>
+            <my-answer>Duration measures a bond's price sensitivity to interest rate changes. It represents the weighted
+                average time to receive cash flows and indicates how much a bond's price will change for a 1% change in
+                interest rates. Longer duration implies higher interest rate risk. It's a critical metric for bond
+                portfolio management and risk assessment.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are callable bonds and their key features?
+                <pre>
+    Callable Bond Parameters:
+    - Face Value: $1,000
+    - Coupon Rate: 6%
+    - Call Date: After 5 years
+    - Call Price: $1,050</pre>
+            </my-question>
+            <my-answer>Callable bonds allow the issuer to redeem the bond before maturity at a predetermined price. This
+                provides flexibility for issuers to refinance debt if interest rates decline. For investors, callable
+                bonds typically offer higher coupon rates to compensate for the call risk, which limits potential price
+                appreciation.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Describe the Black-Scholes delta and its importance.
+                <pre>
+    Option Scenario:
+    - Stock Price: $100
+    - Strike Price: $95
+    - Time to Expiration: 3 months</pre>
+            </my-question>
+            <my-answer>Delta measures the rate of change in an option's price relative to changes in the underlying
+                asset's price. It ranges from 0 to 1 for calls and -1 to 0 for puts. Delta helps traders understand an
+                option's price sensitivity and is crucial for hedging strategies, indicating the equivalent stock
+                position for an option.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is a convertible bond and how does it work?
+                <pre>
+    Convertible Bond Details:
+    - Face Value: $1,000
+    - Coupon Rate: 4%
+    - Conversion Ratio: 25 shares
+    - Current Stock Price: $35</pre>
+            </my-question>
+            <my-answer>A convertible bond is a hybrid security that can be converted into a predetermined number of the
+                issuer's common stock shares. It provides investors with fixed income and potential equity upside. The
+                conversion option allows bondholders to benefit from stock price appreciation while receiving regular
+                interest payments. Conversion is typically profitable when the stock price exceeds the conversion
+                price.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain implied volatility in options trading.
+                <pre>
+    Option Parameters:
+    - Current Stock Price: $50
+    - Strike Price: $55
+    - Time to Expiration: 6 months</pre>
+            </my-question>
+            <my-answer>Implied volatility represents the market's forecast of a likely movement in a security's
+                price. Unlike historical volatility, it is derived from option prices and reflects market sentiment and
+                expected future price fluctuations. Higher implied volatility indicates greater expected price movements
+                and higher option premiums.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are the key differences between interest rate and coupon rate?
+                <pre>
+    Bond Characteristics:
+    - Face Value: $1,000
+    - Coupon Rate: 5%
+    - Market Interest Rate: 4.5%</pre>
+            </my-question>
+            <my-answer>Coupon rate is the fixed percentage of face value paid by the bond issuer as interest. Market
+                interest rate (yield) is the current rate of return based on the bond's market price. When market rates
+                differ from the coupon rate, bonds trade at premium, par, or discount. This relationship determines bond
+                pricing and investor returns.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Describe the mechanics of a convertible bond's conversion feature.
+                <pre>
+    Convertible Bond Parameters:
+    - Face Value: $1,000
+    - Conversion Ratio: 40 shares
+    - Conversion Price: $25/share
+    - Current Stock Price: $30</pre>
+            </my-question>
+            <my-answer>The conversion feature allows bondholders to exchange their bond for a predetermined number of
+                common stock shares. The conversion ratio determines how many shares can be received. Conversion becomes
+                attractive when the stock price exceeds the conversion price. Investors can choose between holding the
+                bond for fixed income or converting to potentially benefit from stock appreciation.</my-answer>
+        </my-pair>
+    </my-quiz>
+</body>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="scripts/shortcuts.js"></script>
+<script src="scripts/quiz.js"></script>
+
+</html>

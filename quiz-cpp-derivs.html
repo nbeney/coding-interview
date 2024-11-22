@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview questions - C++ (Derivatives)</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/shortcuts.css" rel="stylesheet">
+    <link href="styles/quiz.css" rel="stylesheet">
+</head>
+
+<body class="container">
+    <h1>C++ interview questions - Derivatives</h1>
+
+    <my-quiz>
+        <my-pair>
+            <my-question>What can you tell me about exceptions in C++?
+                <pre>
+    try {
+        if (error) throw std::runtime_error("Error occurred");
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }</pre>
+            </my-question>
+            <my-answer>Exceptions provide a mechanism for error handling that separates error-handling code from normal
+                code. C++ uses try, catch, and throw keywords. Exceptions can propagate up the call stack, allowing
+                centralized error management. Standard library provides base exception classes like std::exception, with
+                derived classes for specific error types.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What does the const keyword do in C++?
+                <pre>
+    const int x = 10;  // Cannot be modified
+    void func(const int* ptr);  // Cannot modify pointed value</pre>
+            </my-question>
+            <my-answer>const prevents modification of a variable. It can be applied to variables, pointers, references,
+                and method parameters. For methods, const indicates the method won't modify object state. const_cast can
+                temporarily remove const-ness, but doing so is dangerous and can lead to undefined behavior if the
+                original object was truly const.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What does the static keyword do in C++?
+                <pre>
+    class Example {
+        static int count;  // Shared across all instances
+        static void method();  // Can be called without object
+    };</pre>
+            </my-question>
+            <my-answer>static has different meanings based on context: 1) For class members, it's shared across all
+                instances, 2) For local variables, it retains value between function calls, 3) For global
+                variables/functions, it limits scope to the translation unit, 4) In methods, it can be called without
+                creating an object instance.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Compare static_cast vs dynamic_cast in C++.
+                <pre>
+    Derived* d = static_cast<Derived*>(base_ptr);
+    Derived* d = dynamic_cast<Derived*>(base_ptr);</pre>
+            </my-question>
+            <my-answer>static_cast performs compile-time type conversion without runtime type checking. dynamic_cast
+                performs runtime type checking for polymorphic types, returning nullptr if the cast is invalid.
+                dynamic_cast requires virtual functions in the base class and has performance overhead. Use static_cast
+                for safe, known conversions; dynamic_cast for runtime type safety.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain pure virtual methods in C++.
+                <pre>
+    class AbstractBase {
+        virtual void method() = 0;  // Pure virtual method
+    };</pre>
+            </my-question>
+            <my-answer>Pure virtual methods are declared with "= 0", making the class abstract and preventing
+                instantiation. Derived classes must implement these methods. They define an interface that derived
+                classes must follow. A class with at least one pure virtual method becomes an abstract base class,
+                usable only as a base for inheritance.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Destructor order in inheritance.
+                <pre>
+    class A { virtual ~A() {} };
+    class B : public A { ~B() {} };</pre>
+            </my-question>
+            <my-answer>Destructors are called in reverse order of construction: derived class destructor called first,
+                then base class destructor. With virtual inheritance, this ensures complete object destruction. Always
+                make base class destructors virtual to ensure proper cleanup of derived class resources.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Search complexity in ordered vs unordered arrays.
+                <pre>
+    // Ordered array: Binary Search O(log n)
+    // Unordered array: Linear Search O(n)</pre>
+            </my-question>
+            <my-answer>Ordered array: Binary search has O(log n) complexity, efficiently dividing search space.
+                Unordered array: Linear search requires O(n) complexity, checking each element sequentially. Ordered
+                arrays enable faster searching but require maintaining sorted order during insertions and
+                deletions.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are smart pointers?
+                <pre>
+    std::unique_ptr<int> p1(new int(10));
+    std::shared_ptr<int> p2 = std::make_shared<int>(20);</pre>
+            </my-question>
+            <my-answer>Smart pointers manage dynamic memory automatically. Types include: unique_ptr (exclusive
+                ownership), shared_ptr (reference-counted ownership), weak_ptr (non-owning reference to shared_ptr).
+                They prevent memory leaks, provide automatic resource management, and help implement RAII (Resource
+                Acquisition Is Initialization) principle.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>When to provide constructor/assignment operator.
+                <pre>
+    class Resource {
+        Resource(const Resource&);  // Copy constructor
+        Resource& operator=(const Resource&);  // Assignment operator
+    };</pre>
+            </my-question>
+            <my-answer>Provide these when: 1) Class manages raw resources (memory, file handles), 2) Deep copying is
+                needed, 3) Following Rule of Three/Five, 4) Custom initialization or resource management required.
+                Modern C++ encourages using smart pointers and move semantics to simplify resource
+                management.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are abstract classes good for?
+                <pre>
+    class Shape {
+        virtual double area() = 0;  // Pure virtual method
+    };</pre>
+            </my-question>
+            <my-answer>Abstract classes define interfaces for derived classes, ensuring consistent method
+                implementations. They provide a common base with shared functionality, enforce design contracts, and
+                enable polymorphic behavior. Used to create type-safe hierarchies and define abstract concepts that
+                can't be instantiated directly.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What does the compiler generate for an empty class?
+                <pre>
+    class EmptyClass {};</pre>
+            </my-question>
+            <my-answer>Compiler generates: 1) Default constructor, 2) Default destructor, 3) Default copy
+                constructor, 4) Default copy assignment operator, 5) Default move constructor, 6) Default move
+                assignment operator. For non-trivial classes, these can be suppressed using '= delete' or '=
+                default'.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What should you never do in a destructor?
+                <pre>
+    class Example {
+        ~Example() {
+            // DO NOT throw exceptions
+        }
+    };</pre>
+            </my-question>
+            <my-answer>Never throw exceptions in destructors. This can lead to program termination during stack
+                unwinding. Destructors are called during exception handling, and throwing another exception can
+                cause std::terminate(). Instead, log errors or handle them within the destructor without
+                throwing.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are the 4 method guarantees?
+                <pre>
+    // Method design principles
+    // 1. No-throw
+    // 2. Strong guarantee
+    // 3. Basic guarantee
+    // 4. No guarantee</pre>
+            </my-question>
+            <my-answer>1. No-throw: Method always succeeds, never throws exceptions. 2. Strong guarantee: If
+                method fails, system returns to previous state. 3. Basic guarantee: No resource leaks, object
+                remains in valid state after failure. 4. No guarantee: Method might leave system in
+                unpredictable state. Higher guarantees provide more robust error handling.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>
+                Implement a templated least recently used (LRU) cache using a hash map
+                <pre>
+    // Templated LRU Cache with O(1) get and put operations
+    template &lt;typename K, typename V&gt;
+    class LRUCache {};</pre>
+            </my-question>
+            <my-answer>
+                <pre>
+    template &lt;typename K, typename V&gt;
+    class LRUCache {
+    private:
+        int capacity;
+        list&lt;pair&lt;K, V&gt;&gt; cache_list;
+        unordered_map&lt;K, typename list&lt;pair&lt;K, V&gt;&gt;::iterator&gt; cache_map;
+    public:
+        LRUCache(int cap) : capacity(cap) {}
+
+        V get(const K& key) {
+            auto it = cache_map.find(key);
+            if (it == cache_map.end()) 
+                throw std::out_of_range("Key not found");
+            
+            // Move accessed item to front (most recently used)
+            cache_list.splice(cache_list.begin(), cache_list, it->second);
+            return it->second->second;
+        }
+        
+        void put(const K& key, const V& value) {
+            auto it = cache_map.find(key);
+            
+            // If key exists, update and move to front
+            if (it != cache_map.end()) {
+                it->second->second = value;
+                cache_list.splice(cache_list.begin(), cache_list, it->second);
+                return;
+            }
+            
+            // If cache is full, remove least recently used
+            if (cache_map.size() >= capacity) {
+                K lru_key = cache_list.back().first;
+                cache_map.erase(lru_key);
+                cache_list.pop_back();
+            }
+            
+            // Add new item
+            cache_list.push_front({key, value});
+            cache_map[key] = cache_list.begin();
+        }
+    };</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>
+                Given a single linked list and a reference to its head:
+                a) Implement a function that returns the n-th element from the end;
+                b) Given 'struct S { void operator() (node *p) {...} };', call the method for every element in the list
+                in reverse order.
+                <pre>
+struct node {
+    int data;
+    node* next;
+};</pre>
+            </my-question>
+            <my-answer>
+                <pre>
+// Solution for both parts
+class Solution {
+public:
+    // a) Find n-th element from end
+    node* nthFromEnd(node* head, int n) {
+        if (!head || n < 1) return nullptr;
+        
+        node* slow = head;
+        node* fast = head;
+        
+        // Move fast pointer n nodes ahead
+        for (int i = 0; i < n; i++) {
+            if (!fast) return nullptr;
+            fast = fast->next;
+        }
+        
+        // Move both pointers until fast reaches end
+        while (fast) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        
+        return slow;
+    }
+    
+    // b) Reverse traversal with functor
+    void reverseTraversal(node* head, S& functor) {
+        if (!head) return;
+        
+        // Recursive approach for reverse order
+        reverseTraversal(head->next, functor);
+        functor(head);
+    }
+};</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>
+                Write a C (or C++) function to calculate the value of f(x) = (1 - exp(-x)). Ensure accurate results when
+                x is near zero or zero.
+                <pre>
+double f(double x);</pre>
+            </my-question>
+            <my-answer>
+                <pre>
+double f(double x) {
+    // Handle potential floating-point precision issues near zero
+    if (std::abs(x) &lt; 1e-4) {
+        // Use Taylor series expansion for accurate result near zero
+        // f(x) ≈ x - x^2/2 + x^3/3 - x^4/4 + ...
+        double x2 = x * x;
+        return x * (1.0 - x/2.0 * (1.0 - x/3.0 * (1.0 - x/4.0)));
+    }
+    return 1.0 - std::exp(-x);
+}</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>
+                In C, how to calculate exp(-x) when x is near zero or zero?
+                <pre>
+double safe_exp_neg(double x);</pre>
+            </my-question>
+            <my-answer>
+                <pre>
+double safe_exp_neg(double x) {
+    // Taylor series expansion for exp(-x) near zero
+    // exp(-x) = 1 - x + x^2/2! - x^3/3! + x^4/4! - ...
+    if (fabs(x) &lt; 1e-4) {
+        double x2 = x * x;
+        return 1.0 - x * (1.0 - x/2.0 * (1.0 - x/3.0 * (1.0 - x/4.0)));
+    }
+    return exp(-x);
+}</pre>
+            </my-answer>
+        </my-pair>
+    </my-quiz>
+</body>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="scripts/shortcuts.js"></script>
+<script src="scripts/quiz.js"></script>
+
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview questions - Java (concurrent)</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/shortcuts.css" rel="stylesheet">
+    <link href="styles/quiz.css" rel="stylesheet">
+</head>
+
+<body class="container">
+    <h1>Java interview questions - concurrent</h1>
+
+    <my-quiz>
+        <my-pair>
+            <my-question>Explain the difference between <code>synchronized</code> keyword and <code>ReentrantLock</code>
+                in Java concurrent programming.
+                <pre>
+    // Compare synchronization mechanisms
+    public class LockComparison {
+        // Synchronized method
+        public synchronized void synchronizedMethod() {}
+        
+        // ReentrantLock usage
+        private final Lock lock = new ReentrantLock();
+        public void reentrantLockMethod() {
+            lock.lock();
+            try {
+                // Critical section
+            } finally {
+                lock.unlock();
+            }
+        }
+    }</pre>
+            </my-question>
+            <my-answer>Key differences include:
+                • <code>synchronized</code> is a keyword, while <code>ReentrantLock</code> is a class
+                • <code>ReentrantLock</code> offers more flexibility with methods like <code>tryLock()</code>,
+                <code>lockInterruptibly()</code>
+                • <code>ReentrantLock</code> allows fair locking policies
+                • <code>ReentrantLock</code> requires explicit locking and unlocking
+                • <code>synchronized</code> is more concise but less feature-rich
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>How does the <code>java.util.concurrent.atomic</code> package help in thread-safe operations?
+                <pre>
+    import java.util.concurrent.atomic.AtomicInteger;
+    
+    public class AtomicExample {
+        private AtomicInteger counter = new AtomicInteger(0);
+        
+        public void increment() {
+            counter.incrementAndGet();
+        }
+    }</pre>
+            </my-question>
+            <my-answer>The <code>atomic</code> package provides lock-free thread-safe primitive types:
+                • Supports atomic operations without explicit synchronization
+                • Guarantees thread-safety for operations like increment, compare-and-set
+                • Uses low-level CPU instructions for efficient synchronization
+                • Prevents race conditions in multi-threaded environments
+                • Includes classes like <code>AtomicInteger</code>, <code>AtomicReference</code>,
+                <code>AtomicLong</code>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Describe the thread lifecycle states in Java and explain thread transitions.
+                <pre>
+    public class ThreadLifecycleDemo {
+        public static void main(String[] args) {
+            Thread thread = new Thread(() -> {
+                // Thread work
+            });
+            
+            thread.start(); // Triggers state transitions
+        }
+    }</pre>
+            </my-question>
+            <my-answer>Java thread lifecycle states:
+                • New: Thread created but not started
+                • Runnable: Ready to run, waiting for CPU allocation
+                • Running: Currently executing
+                • Blocked: Waiting to acquire a lock
+                • Waiting: Waiting indefinitely for another thread
+                • Timed Waiting: Waiting with a specified timeout
+                • Terminated: Execution completed
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Implement a thread-safe singleton using double-checked locking.
+                <pre>
+    public class ThreadSafeSingleton {
+        private static volatile ThreadSafeSingleton instance;
+        
+        private ThreadSafeSingleton() {}
+        
+        public static ThreadSafeSingleton getInstance() {
+            if (instance == null) {
+                synchronized(ThreadSafeSingleton.class) {
+                    if (instance == null) {
+                        instance = new ThreadSafeSingleton();
+                    }
+                }
+            }
+            return instance;
+        }
+    }</pre>
+            </my-question>
+            <my-answer>Double-checked locking ensures:
+                • Lazy initialization of singleton
+                • <code>volatile</code> keyword prevents instruction reordering
+                • First <code>null</code> check reduces synchronization overhead
+                • Inner synchronized block ensures thread-safety
+                • Only one instance is created across multiple threads
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Compare <code>Executor</code>, <code>ExecutorService</code>, and
+                <code>ThreadPoolExecutor</code> in Java concurrent programming.
+                <pre>
+    import java.util.concurrent.*;
+    
+    public class ExecutorDemo {
+        public static void main(String[] args) {
+            ExecutorService executor = Executors.newFixedThreadPool(5);
+            executor.submit(() -> System.out.println("Task"));
+        }
+    }</pre>
+            </my-question>
+            <my-answer>Comparison of concurrent execution interfaces:
+                • <code>Executor</code>: Basic interface for executing tasks
+                • <code>ExecutorService</code>: Extends <code>Executor</code> with lifecycle management
+                • <code>ThreadPoolExecutor</code>: Concrete implementation of thread pool
+                • Provides thread reuse and management
+                • Controls thread creation, queuing, and execution strategies
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the <code>wait()</code> and <code>notify()</code> methods in inter-thread
+                communication.
+                <pre>
+    public class ProducerConsumerExample {
+        private synchronized void produce() throws InterruptedException {
+            while (condition) {
+                wait(); // Releases lock and waits
+            }
+            // Produce item
+            notify(); // Wakes up waiting thread
+        }
+    }</pre>
+            </my-question>
+            <my-answer>Inter-thread communication methods:
+                • <code>wait()</code>: Causes current thread to release lock and wait
+                • <code>notify()</code>: Wakes up a single waiting thread
+                • <code>notifyAll()</code>: Wakes up all waiting threads
+                • Must be called from synchronized context
+                • Used for complex thread synchronization scenarios
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Describe the <code>ConcurrentHashMap</code> and its thread-safety mechanisms.
+                <pre>
+    import java.util.concurrent.ConcurrentHashMap;
+    
+    public class ConcurrentMapDemo {
+        private ConcurrentHashMap<String, Integer> map = 
+            new ConcurrentHashMap<>();
+        
+        public void updateMap() {
+            map.put("key", 42);
+        }
+    }</pre>
+            </my-question>
+            <my-answer>Thread-safe map implementation:
+                • Allows concurrent read and write operations
+                • Uses segment locking instead of entire map locking
+                • Provides better performance than <code>Hashtable</code>
+                • Supports atomic operations like <code>putIfAbsent()</code>
+                • Prevents <code>ConcurrentModificationException</code>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are the key differences between <code>CountDownLatch</code> and
+                <code>CyclicBarrier</code>?
+                <pre>
+    import java.util.concurrent.*;
+    
+    public class SynchronizationExample {
+        public void usingCountDownLatch() throws InterruptedException {
+            CountDownLatch latch = new CountDownLatch(3);
+            // Threads count down
+            latch.await(); // Wait for count to reach zero
+        }
+    }</pre>
+            </my-question>
+            <my-answer>Synchronization primitive differences:
+                • <code>CountDownLatch</code>: One-time synchronization
+                • <code>CyclicBarrier</code>: Reusable synchronization point
+                • <code>CountDownLatch</code> counts down, <code>CyclicBarrier</code> waits for all threads
+                • <code>CountDownLatch</code> cannot be reset
+                • <code>CyclicBarrier</code> can be reused after barrier is broken
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Implement a producer-consumer solution using <code>BlockingQueue</code>.
+                <pre>
+    import java.util.concurrent.*;
+    
+    public class ProducerConsumerBlockingQueue {
+        private BlockingQueue<Integer> queue = 
+            new LinkedBlockingQueue<>(10);
+        
+        public void produce() throws InterruptedException {
+            queue.put(1); // Blocks if queue is full
+        }
+        
+        public void consume() throws InterruptedException {
+            Integer item = queue.take(); // Blocks if queue is empty
+        }
+    }</pre>
+            </my-question>
+            <my-answer>Benefits of <code>BlockingQueue</code>:
+                • Thread-safe data structure
+                • Automatic blocking on <code>put()</code> and <code>take()</code>
+                • Eliminates need for explicit synchronization
+                • Supports multiple implementation types
+                • Prevents busy-waiting and reduces complexity
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the purpose and usage of <code>Semaphore</code> in concurrent programming.
+                <pre>
+    import java.util.concurrent.*;
+    
+    public class SemaphoreExample {
+        private Semaphore semaphore = new Semaphore(3);
+        
+        public void accessResource() throws InterruptedException {
+            semaphore.acquire(); // Limit concurrent access
+            try {
+                // Access limited resource
+            } finally {
+                semaphore.release();
+            }
+        }
+    }</pre>
+            </my-question>
+            <my-answer>Semaphore characteristics:
+                • Controls access to a set of resources
+                • Limits number of concurrent threads
+                • Can be fair or non-fair
+                • Prevents resource overutilization
+                • Useful for connection pools, resource management
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are memory barriers and how do they prevent instruction reordering?
+                <pre>
+    public class MemoryBarrierExample {
+        private volatile int value;
+        
+        public void updateValue() {
+            // Volatile ensures memory visibility
+            value = 42;
+        }
+    }</pre>
+            </my-question>
+            <my-answer>Memory barrier mechanisms:
+                • Prevent compiler and CPU instruction reordering
+                • Ensure visibility of changes across threads
+                • <code>volatile</code> keyword creates memory barriers
+                • Guarantees happens-before relationship
+                • Critical for managing shared memory in multi-threaded environments
+            </my-answer>
+        </my-pair>
+    </my-quiz>
+</body>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="scripts/shortcuts.js"></script>
+<script src="scripts/quiz.js"></script>
+
+</html>

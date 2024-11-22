@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview questions - Java</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/shortcuts.css" rel="stylesheet">
+    <link href="styles/quiz.css" rel="stylesheet">
+</head>
+
+<body class="container">
+    <h1>Java interview questions</h1>
+
+    <my-quiz>
+        <my-pair>
+            <my-question>What is the difference between abstract classes and interfaces in Java?</my-question>
+            <my-answer>Abstract classes can have implemented methods and instance variables, while interfaces (before
+                Java 8) could only have abstract method declarations. Since Java 8, interfaces can have default and
+                static methods. A class can implement multiple interfaces but can only extend one abstract
+                class.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the difference between == and .equals() in Java.</my-question>
+            <my-answer>== compares object references (memory addresses), while .equals() compares the actual content of
+                objects. For strings, .equals() checks character sequence, whereas == checks if they point to the same
+                memory location. In the example, str1 == str2 would be false, but str1.equals(str2) would be
+                true.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is the purpose of the 'final' keyword in Java?</my-question>
+            <my-answer>When applied to variables, 'final' makes them constants that cannot be reassigned. For methods,
+                it prevents method overriding. For classes, it prevents inheritance. Final variables must be initialized
+                either at declaration or in the constructor.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is method overloading in Java?</my-question>
+            <my-answer>Method overloading allows multiple methods with the same name but different parameter lists in
+                the same class. The compiler determines which method to call based on the argument types and number. It
+                provides flexibility in method usage while maintaining readability.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the concept of autoboxing and unboxing in Java.</my-question>
+            <my-answer>Autoboxing is the automatic conversion of primitive types to their corresponding wrapper classes.
+                Unboxing is the reverse process. This feature was introduced in Java 5 to simplify coding when working
+                with collections and generics that require object types.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are the access modifiers in Java?</my-question>
+            <my-answer>Java has four access modifiers:
+                <ul>
+                    <li>public: accessible from anywhere</li>
+                    <li>private: accessible only within the same class</li>
+                    <li>protected: accessible within the same package and subclasses</li>
+                    <li>default (no modifier): accessible within the same package</li>
+                </ul>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is the difference between ArrayList and LinkedList?</my-question>
+            <my-answer>ArrayList uses a dynamic array for storage, providing fast random access but slower
+                insertions/deletions. LinkedList uses a doubly-linked list, offering faster insertions/deletions but
+                slower random access. Choose based on your specific use case and performance requirements.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the purpose of the 'throws' keyword.</my-question>
+            <my-answer>The 'throws' keyword declares that a method might throw a specific exception, requiring calling
+                methods to handle or further declare the exception. It's part of Java's checked exception mechanism,
+                forcing developers to handle potential error scenarios.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is the purpose of the 'synchronized' keyword?</my-question>
+            <my-answer>The 'synchronized' keyword ensures that only one thread can execute the method or block at a
+                time, preventing race conditions and providing thread safety. It creates a lock on the object, allowing
+                safe concurrent access to shared resources.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Describe the try-with-resources statement.</my-question>
+            <my-answer>Introduced in Java 7, try-with-resources automatically closes resources that implement
+                AutoCloseable after the try block. It simplifies resource management, reduces boilerplate code, and
+                ensures proper resource cleanup, even if an exception occurs.</my-answer>
+        </my-pair>
+    </my-quiz>
+</body>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="scripts/shortcuts.js"></script>
+<script src="scripts/quiz.js"></script>
+
+</html>

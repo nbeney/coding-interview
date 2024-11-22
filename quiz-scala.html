@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview questions - Scala</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/shortcuts.css" rel="stylesheet">
+    <link href="styles/quiz.css" rel="stylesheet">
+</head>
+
+<body class="container">
+    <h1>Scala interview questions</h1>
+
+    <my-quiz>
+        <my-pair>
+            <my-question>What is the difference between val and var in Scala?</my-question>
+            <my-answer>'val' defines an immutable value that cannot be reassigned, while 'var' creates a mutable
+                variable that can be changed. Immutability is a key principle in functional programming, and Scala
+                encourages using 'val' whenever possible to promote predictability and thread safety.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain case classes in Scala.</my-question>
+            <my-answer>Case classes automatically provide immutability, pattern matching support, companion object with
+                apply/unapply methods, and sensible toString, equals, and hashCode implementations. They're typically
+                used for creating lightweight data containers and are fundamental to algebraic data types in
+                Scala.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is the difference between List and Array in Scala?</my-question>
+            <my-answer>List is an immutable, linked-list implementation optimized for functional operations like
+                head/tail manipulation. Array is a mutable, fixed-size data structure with constant-time random access.
+                Lists are preferred in functional programming for their immutability and recursive nature.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain the concept of Option in Scala.</my-question>
+            <my-answer>Option is a container type that represents optional values, eliminating null pointer exceptions.
+                It has two subclasses: Some(value) for present values and None for absent values. It encourages explicit
+                handling of potentially missing data through pattern matching or functional combinators.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are traits in Scala?</my-question>
+            <my-answer>Traits are similar to interfaces in Java but can contain implemented methods and fields. They
+                support multiple inheritance and can be mixed into classes, enabling composition and providing a
+                powerful mechanism for code reuse and modularity.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Describe pattern matching in Scala.</my-question>
+            <my-answer>Pattern matching is a powerful control structure that allows decomposing values based on their
+                type or structure. It's more flexible than switch statements, supporting complex conditions, type
+                checking, and extraction of values in a single expression.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is the difference between call-by-value and call-by-name parameters?
+                <pre>
+def callByValue(x: Int) = {}
+def callByName(x: => Int) = {}</pre>
+            </my-question>
+            <my-answer>Call-by-value parameters are evaluated before method invocation, while call-by-name parameters
+                are evaluated only when used inside the method. Call-by-name allows lazy evaluation and can prevent
+                unnecessary computation or handle potentially undefined expressions.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain higher-order functions in Scala.</my-question>
+            <my-answer>Higher-order functions can take functions as parameters or return functions. They are a key
+                feature of functional programming, enabling powerful abstractions like map, filter, and reduce. In
+                Scala, functions are first-class citizens that can be passed around like any other value.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What are implicit conversions and parameters?
+                <pre>
+implicit def intToString(x: Int): String = x.toString
+def printValue(implicit format: String) = println(format)</pre>
+            </my-question>
+            <my-answer>Implicit conversions automatically transform one type to another, while implicit parameters are
+                automatically passed if a compatible type is in scope. They enable type extensions and reduce
+                boilerplate code, but should be used judiciously to maintain code readability.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Describe the Actor model in Akka (Scala's concurrency framework).</my-question>
+            <my-answer>The Actor model provides a high-level abstraction for concurrent and distributed systems. Each
+                actor is an independent unit that processes messages sequentially, communicating through message
+                passing. This approach eliminates shared mutable state and simplifies reasoning about concurrent
+                systems.</my-answer>
+        </my-pair>
+    </my-quiz>
+</body>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="scripts/shortcuts.js"></script>
+<script src="scripts/quiz.js"></script>
+
+</html>
