@@ -73,7 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
     quiz.insertBefore(instructions, quiz.firstChild);
 
     // Enrich each my-pair and its my-question and my-answer with Bootstrap classes to turn it into a card.
-    for (const pair of document.querySelectorAll("my-pair")) {
+    const pairs = document.querySelectorAll('my-pair');
+    for (const pair of pairs) {
         pair.className = "card mb-4";
 
         const question = pair.querySelector("my-question");
@@ -82,9 +83,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const answer = pair.querySelector("my-answer");
         answer.className = "card-text";
 
-        // Toggle the answer when the question is clicked.
+        // Toggle the answer when the question is clicked + set the focus on the pair.
         question.addEventListener("click", function () {
             answer.style.display = answer.style.display === "none" ? "block" : "none";
+            setFocus(pair);
         });
     }
 
@@ -106,4 +108,5 @@ document.addEventListener("DOMContentLoaded", function () {
     bindKey("Slash", showKeyboardShortcutsDialog, "Show Keyboard Shortcuts");
 
     collapseAll();
+    setFocus(pairs[0]);
 });

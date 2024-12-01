@@ -15,6 +15,180 @@
 
     <my-quiz>
         <my-pair>
+            <my-question>Compare enums vs enum classes in C++?</my-question>
+            <my-answer>Enum classes (scoped enumerations) provide stronger type safety and scoping compared to
+                traditional enums. Traditional enums implicitly convert to integers and have their values in the same
+                scope, while enum classes require explicit casting and keep enumerators within their own scope. Example:
+                <pre>
+enum class Color { Red, Green, Blue }; // Must use Color::Red
+enum OldColor { RED, GREEN, BLUE }; // Can be used directly
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What does the mutable keyword do in C++?</my-question>
+            <my-answer>The mutable keyword allows a member variable to be modified within a const member function. It's
+                typically used for internal state tracking that doesn't affect the object's logical state, such as
+                caching or reference counting.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What does the static keyword do in C++?</my-question>
+            <my-answer>In C++, static has multiple meanings:
+                1. For global variables/functions: Limits scope to the translation unit
+                2. For class members: Shared across all instances of the class
+                3. For local variables: Preserves value between function calls
+                <pre>
+class Example {
+    static int count; // Shared by all instances
+};
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What does the explicit keyword do in C++?</my-question>
+            <my-answer>The explicit keyword prevents implicit type conversions for constructors with a single argument.
+                It forces explicit casting or direct initialization.
+                <pre>
+class MyClass {
+    explicit MyClass(int x); // Prevents implicit conversion
+};
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is the difference between a struct and a class in C++?</my-question>
+            <my-answer>The main difference is default access specifier: struct members are public by default, class
+                members are private by default. Structurally, they are nearly identical and can have methods,
+                constructors, etc.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Compare pointers vs references in C++?</my-question>
+            <my-answer>Pointers can be null and can be reassigned, references must be initialized and cannot be null.
+                Pointers use -> for member access, references use . Pointers require dereferencing, references do not.
+                <pre>
+int* ptr = nullptr;     // Valid
+int& ref = value;      // Must be initialized
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is the difference between the stack and the heap in C++?</my-question>
+            <my-answer>Stack: Automatic memory management, faster allocation, limited size, local variables. Heap:
+                Manual memory management (in C++), dynamic allocation, larger size, slower allocation, requires explicit
+                memory management.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Compare pass by value vs pass by reference in C++?</my-question>
+            <my-answer>Pass by value creates a copy of the argument, pass by reference passes a reference to the
+                original argument. Pass by reference is more memory efficient and allows modification of the original
+                argument.
+                <pre>
+void func(int x);        // Pass by value
+void func(int& x);      // Pass by reference
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>What is the difference between a copy constructor and an assignment operator in
+                C++?</my-question>
+            <my-answer>Copy constructor initializes a new object as a copy of an existing object. Assignment operator
+                assigns values to an already existing object. Copy constructor is called during object creation,
+                assignment operator during object assignment.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Compare static_cast vs dynamic_cast vs C-style cast in C++?</my-question>
+            <my-answer>static_cast: Compile-time type conversion, no runtime overhead. dynamic_cast: Runtime type
+                checking for polymorphic types, returns nullptr for invalid conversions. C-style cast: Less safe,
+                performs multiple type conversions without strict checks.</my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain std::optional in C++?</my-question>
+            <my-answer>std::optional represents an optional value that may or may not be present. It provides a
+                type-safe way to handle nullable values without using nullptr.
+                <pre>
+std::optional<int> value = 42;
+if (value) { // Check if value exists }
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain std::variant in C++?</my-question>
+            <my-answer>std::variant is a type-safe union that can hold different types. It allows storing and accessing
+                different type values safely.
+                <pre>
+std::variant<int, string> v = 10;
+std::visit([](auto&& arg) { cout &lt;&lt; arg; }, v);
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain std::any in C++?</my-question>
+            <my-answer>std::any can store any single value of any type. It provides type-safe storage and retrieval of
+                values.
+                <pre>
+std::any a = 1;
+std::cout &lt;&lt; std::any_cast<int>(a);
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain std::function in C++?</my-question>
+            <my-answer>std::function is a type-erased callable wrapper that can store any callable object (functions,
+                lambdas, functors).
+                <pre>
+std::function<int(int,int)> func = [](int a, int b) { return a + b; };
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain std::bind in C++?</my-question>
+            <my-answer>std::bind creates function objects by binding arguments to a function. It allows partial function
+                application and argument rearrangement.
+                <pre>
+auto bound = std::bind(multiply, std::placeholders::_1, 2);
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Explain exception handling in C++? Compare with Java?</my-question>
+            <my-answer>C++ uses try-catch blocks similar to Java. Key differences:
+                - C++ allows throwing any type
+                - C++ has noexcept specifier
+                - Java forces checked exceptions
+                - C++ uses RAII for resource management
+                <pre>
+try {
+    throw std::runtime_error("Error");
+} catch (const std::exception& e) {
+    // Handle exception
+}
+</pre>
+            </my-answer>
+        </my-pair>
+
+        <my-pair>
+            <my-question>Compare memory management in C++ vs Java?</my-question>
+            <my-answer>C++: Manual memory management, unique_ptr/smart pointers, RAII. Java: Automatic garbage
+                collection. C++ gives more control but requires careful management. Java is easier but less
+                performant.</my-answer>
+        </my-pair>
+
+        <my-pair>
             <my-question>What is the difference between new and malloc()?
                 <pre>
 int* ptr1 = new int(10);
@@ -47,7 +221,7 @@ class Resource {
                 <pre>
 int x = 10;
 int& ref = x;  // Reference
-int* ptr = &x; // Pointer</pre>
+int* ptr = &amp;x; // Pointer</pre>
             </my-question>
             <my-answer>References must be initialized at declaration, cannot be null, and cannot be reassigned to refer
                 to another object. Pointers can be reassigned, can be null, and require explicit dereferencing.
@@ -58,10 +232,10 @@ int* ptr = &x; // Pointer</pre>
             <my-question>Explain virtual functions and polymorphism.
                 <pre>
 class Base {
-    virtual void show() { cout << "Base"; }
+    virtual void show() { cout &lt;&lt; "Base"; }
 };
 class Derived : public Base {
-    void show() override { cout << "Derived"; }
+    void show() override { cout &lt;&lt; "Derived"; }
 };</pre>
             </my-question>
             <my-answer>Virtual functions enable runtime polymorphism, allowing a derived class to override a base class
@@ -90,7 +264,7 @@ struct Factorial {
     static const int value = N * Factorial<N-1>::value;
 };
 
-template <>
+template &lt;&gt;
 struct Factorial<0> {
     static const int value = 1;
 };</pre>
@@ -151,7 +325,7 @@ private:
 try {
     if (error) throw std::runtime_error("Something went wrong");
 } catch (const std::exception& e) {
-    std::cerr << e.what() << std::endl;
+    std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
 } catch (...) {
     // Catch all other exceptions
 }</pre>

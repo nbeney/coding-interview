@@ -4,28 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interview questions</title>
+    <title>Interview questions - {{subject}}</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/shortcuts.css" rel="stylesheet">
+    <link href="styles/quiz.css" rel="stylesheet">
 </head>
 
 <body class="container">
-    <h1>Interview questions</h1>
+    <h1>{{subject}} interview questions</h1>
 
-    <ul>
-        <li><a href="quiz-finance.html">Finance</a></li>
-        <li><a href="quiz-java.html">Java</a></li>
-        <li><a href="quiz-java-concurrent.html">Java (concurrent)</a></li>
-        <li><a href="quiz-scala.html">Scala</a></li>
-        <li><a href="quiz-cpp.html">C++</a></li>
-        <li><a href="quiz-cpp-derivs.html">C++ (Derivatives)</a></li>
-        <li><a href="quiz-python.html">Python</a></li>
-        <li><a href="quiz-sql.html">SQL</a></li>
-    </ul>
+    <my-quiz>
+        {% for pair in pairs %}
+        <my-pair>
+            <my-question>{{pair.question}}</my-question>
+            <my-answer>{{pair.answer}}</my-answer>
+        </my-pair>
+        {% endfor %}
+    </my-quiz>
 </body>
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="scripts/shortcuts.js"></script>
+<script src="scripts/quiz.js"></script>
 
 </html>
