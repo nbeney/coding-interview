@@ -52,7 +52,7 @@ Here is a sample page with a quiz containing three questions.
 </html>
 ```
 
-Here is how the page looks after the second question has been expanded (using the mouse or the right arrow key <kbd>→</kbd>) to reveal its answer.
+Here is how the page looks after the second question has been expanded (using the mouse or the right arrow key <kbd>→</kbd>) to reveal its answer. In particular, note how the message at the top is added automatically, how the questions are numbered automatically, and how the current question is highlighted. The message and the highlighting will disappear when the page is printed.
 
 ![Sample quiz](screenshot-sample.png)
 
