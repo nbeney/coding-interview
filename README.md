@@ -54,7 +54,7 @@ Here is a sample page with a quiz containing three questions. The questions and 
 
 Here is how the page looks after the second question has been expanded (using the mouse or the right arrow key <kbd>→</kbd>) to reveal its answer. In particular, note how the message at the top is added automatically, how the questions are numbered automatically, and how the current question is highlighted. The message and the highlighting will disappear when the page is printed.
 
-![Sample quiz](screenshot-sample.png)
+![Sample quiz](screenshots/screenshot-sample.png)
 
 There are keyboard shortcuts for navigating through the questions and expanding or collapsing them.
 
@@ -62,7 +62,7 @@ To show the help for the keyboard shortcuts, press <kbd>?</kbd>.
 
 To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the *Close* button, or click outside the dialog box.
 
-![Keyboard shortcuts help](screenshot-help.png)
+![Keyboard shortcuts help](screenshots/screenshot-help.png)
 
 ## How to create a new quiz
 
