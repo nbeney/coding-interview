@@ -4,7 +4,7 @@
 
 ## Example
 
-Here is a sample page with a quiz containing three questions. The questions and the answers could contain embedded HTML elements if required.
+Here is a sample page with a quiz containing three questions. The questions and the answers can contain embedded HTML elements if required.
 
 ```html
 <!DOCTYPE html>
@@ -63,6 +63,23 @@ To show the help for the keyboard shortcuts, press <kbd>?</kbd>.
 To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the *Close* button, or click outside the dialog box.
 
 ![Keyboard shortcuts help](screenshot-help.png)
+
+## How to create a new quiz
+
+* Copy an existing quiz (eg `quiz-sample.html`)
+* Modify `<title>` and `<h1>`
+* Delete the content of `<my-quiz>`
+* For each question/answer pair, add a `<my-pair>` containing exactly one `<my-question>` followed by one `<my-answer>`
+
+```html
+<my-pair>
+    <my-question>Question text here (can contain HTML)</my-question>
+    <my-answer>Answer text here (can contain HTML)</my-answer>
+</my-pair>
+```
+
+[!IMPORTANT]
+Ensure the page is including the two CSS files (`shortcuts.css` and `quiz.css`) at the top and the two script files (`shortcuts.js` and `quiz.js`) at the bottom. `shortcuts.js` must be included before `quiz.js`.
 
 ## Files
 
