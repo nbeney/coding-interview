@@ -89,3 +89,4 @@ To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the *Close* button, or c
 * `styles/quiz.css` - Styling for the questions & answers
 * `scripts/shortcuts.js` - Code for binding keyboard shortcuts to actions
 * `scripts/quiz.js` - Code for the custom tags 
+* `ai-generation/` - Contains a Python script to generate quizzes automatically using the Anthropic Claude AI API
