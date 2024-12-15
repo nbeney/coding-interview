@@ -1,0 +1,65 @@
+I'll provide clear definitions and explanations for the key concepts in concurrent programming:
+
+1. **Concurrency vs. Parallelism**
+   - **Concurrency** is about managing multiple tasks that can make progress independently, potentially interleaving their execution. It's about dealing with multiple things at once, but not necessarily executing them simultaneously.
+   - **Parallelism** involves actually executing multiple tasks simultaneously, typically on different CPU cores or processors. It's a subset of concurrency where tasks are truly running at the same time.
+
+2. **Thread-Safety**
+   Thread-safety refers to code that can be safely executed by multiple threads simultaneously without causing unexpected or incorrect behavior. A thread-safe implementation ensures that:
+   - Shared resources are protected from simultaneous access
+   - Operations on shared data are atomic or properly synchronized
+   - No data races or inconsistent states can occur when multiple threads interact with the same data
+
+3. **Deadlock**
+   Deadlock is a situation where two or more threads are unable to proceed because each is waiting for the other to release a resource. It's a complete standstill where:
+   - Threads are holding resources
+   - Each thread is waiting for a resource held by another thread
+   - No thread can make progress
+   - The system becomes permanently stuck
+
+4. **Starvation**
+   Starvation occurs when a thread is perpetually denied the resources it needs to make progress. Key characteristics include:
+   - A thread is unable to gain access to shared resources
+   - Other threads continuously prevent it from executing
+   - The starved thread cannot complete its work
+
+5. **Fairness**
+   Fairness in concurrent programming ensures that all threads have a reasonable opportunity to execute. A fair scheduling approach:
+   - Prevents individual threads from monopolizing resources
+   - Provides predictable and equitable access to shared resources
+   - Reduces the likelihood of thread starvation
+   - Balances execution time across different threads
+
+6. **Race Condition**
+   A race condition happens when the behavior of a system depends on the relative timing of multiple threads. It occurs when:
+   - Multiple threads access shared data
+   - The final result depends on the order of thread execution
+   - The outcome is unpredictable and can lead to incorrect program behavior
+
+7. **Mutex (Mutual Exclusion)**
+   A mutex is a synchronization primitive that ensures only one thread can access a shared resource at a time. It provides:
+   - Exclusive access to critical sections
+   - Prevention of simultaneous modifications to shared data
+   - A mechanism to coordinate thread access to resources
+
+8. **Semaphore**
+   A semaphore is a synchronization tool that controls access to a shared resource by multiple threads. It can:
+   - Limit the number of threads that can access a resource simultaneously
+   - Act as a signaling mechanism between threads
+   - Provide a way to manage resource allocation
+
+9. **Critical Section**
+   A critical section is a segment of code that accesses shared resources and must not be simultaneously executed by more than one thread. Proper management of critical sections involves:
+   - Ensuring mutual exclusion
+   - Minimizing the time spent in the critical section
+   - Preventing deadlocks and race conditions
+
+10. **Atomic Operations**
+    Atomic operations are indivisible, uninterruptible actions that appear to happen instantaneously from the perspective of other threads. They:
+    - Prevent partial updates to shared data
+    - Ensure that an operation completes entirely or not at all
+    - Are crucial for maintaining data consistency in concurrent systems
+
+Understanding these concepts is fundamental to writing robust, efficient concurrent programs. Each concept addresses different challenges that arise when multiple threads or processes interact and share resources.
+
+Would you like me to elaborate on any of these concepts or provide some practical examples of how they manifest in real-world concurrent programming?

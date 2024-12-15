@@ -1,0 +1,95 @@
+#include <iostream>
+
+// Linked List Node structure
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+// Method 1: Two-pass approach (counting list length)
+ListNode* findNthFromEndCountingMethod(ListNode* head, int n) {
+    // If list is empty or n is invalid
+    if (!head || n <= 0) return nullptr;
+    
+    // First pass: Count total number of nodes
+    int length = 0;
+    ListNode* current = head;
+    while (current) {
+        length++;
+        current = current->next;
+    }
+    
+    // Check if n is greater than list length
+    if (n > length) return nullptr;
+    
+    // Second pass: Move to (length - n)th node
+    current = head;
+    for (int i = 0; i < length - n; i++) {
+        current = current->next;
+    }
+    
+    return current;
+}
+
+// Method 2: One-pass approach using two pointers (two-pointer technique)
+ListNode* findNthFromEndTwoPointerMethod(ListNode* head, int n) {
+    // If list is empty or n is invalid
+    if (!head || n <= 0) return nullptr;
+    
+    ListNode* slow = head;
+    ListNode* fast = head;
+    
+    // Move fast pointer n nodes ahead
+    for (int i = 0; i < n; i++) {
+        // If we can't move n nodes ahead, n is invalid
+        if (!fast) return nullptr;
+        fast = fast->next;
+    }
+    
+    // Move both pointers until fast reaches end
+    while (fast) {
+        slow = slow->next;
+        fast = fast->next;
+    }
+    
+    return slow;
+}
+
+// Utility function to print the list
+void printList(ListNode* head) {
+    while (head) {
+        std::cout << head->val << " ";
+        head = head->next;
+    }
+    std::cout << std::endl;
+}
+
+// Example usage
+int main() {
+    // Create a sample list: 1 -> 2 -> 3 -> 4 -> 5
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+    
+    std::cout << "Original List: ";
+    printList(head);
+    
+    // Find 2nd node from the end using counting method
+    ListNode* nthNodeCountingMethod = findNthFromEndCountingMethod(head, 2);
+    if (nthNodeCountingMethod) {
+        std::cout << "2nd node from end (Counting Method): " 
+                  << nthNodeCountingMethod->val << std::endl;
+    }
+    
+    // Find 2nd node from the end using two-pointer method
+    ListNode* nthNodeTwoPointerMethod = findNthFromEndTwoPointerMethod(head, 2);
+    if (nthNodeTwoPointerMethod) {
+        std::cout << "2nd node from end (Two-Pointer Method): " 
+                  << nthNodeTwoPointerMethod->val << std::endl;
+    }
+    
+    return 0;
+}

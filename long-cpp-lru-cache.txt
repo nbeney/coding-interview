@@ -1,0 +1,112 @@
+#ifndef THREAD_SAFE_LRU_CACHE_H
+#define __cplusplus
+
+#include <unordered_map>
+#include <list>
+#include <mutex>
+#include <optional>
+#include <stdexcept>
+
+template <typename K, typename V>
+class LRUCache {
+private:
+    // Maximum number of elements the cache can hold
+    size_t capacity;
+
+    // List to maintain order of recently used elements
+    std::list<std::pair<K, V>> cache_order;
+
+    // Hash map for O(1) key lookup
+    std::unordered_map<K, typename std::list<std::pair<K, V>>::iterator> cache_map;
+
+    // Mutex to ensure thread-safety
+    mutable std::mutex cache_mutex;
+
+public:
+    // Constructor with explicit capacity
+    explicit LRUCache(size_t max_capacity) : capacity(max_capacity) {
+        if (capacity == 0) {
+            throw std::invalid_argument("Cache capacity must be greater than 0");
+        }
+    }
+
+    // Insert or update a key-value pair
+    void put(const K& key, const V& value) {
+        std::lock_guard<std::mutex> lock(cache_mutex);
+
+        // Check if key already exists
+        auto it = cache_map.find(key);
+        
+        if (it != cache_map.end()) {
+            // Update existing entry
+            it->second->second = value;
+            
+            // Move to front (most recently used)
+            cache_order.splice(cache_order.begin(), cache_order, it->second);
+        } else {
+            // Insert new entry
+            if (cache_map.size() >= capacity) {
+                // Remove least recently used item
+                auto last = cache_order.back();
+                cache_map.erase(last.first);
+                cache_order.pop_back();
+            }
+
+            // Add new entry to front
+            cache_order.push_front({key, value});
+            cache_map[key] = cache_order.begin();
+        }
+    }
+
+    // Retrieve a value by key
+    std::optional<V> get(const K& key) {
+        std::lock_guard<std::mutex> lock(cache_mutex);
+
+        auto it = cache_map.find(key);
+        if (it == cache_map.end()) {
+            return std::nullopt;
+        }
+
+        // Move accessed item to front (most recently used)
+        cache_order.splice(cache_order.begin(), cache_order, it->second);
+        
+        return it->second->second;
+    }
+
+    // Remove a key from the cache
+    void remove(const K& key) {
+        std::lock_guard<std::mutex> lock(cache_mutex);
+
+        auto it = cache_map.find(key);
+        if (it != cache_map.end()) {
+            cache_order.erase(it->second);
+            cache_map.erase(it);
+        }
+    }
+
+    // Get current cache size
+    size_t size() const {
+        std::lock_guard<std::mutex> lock(cache_mutex);
+        return cache_map.size();
+    }
+
+    // Check if cache is empty
+    bool empty() const {
+        std::lock_guard<std::mutex> lock(cache_mutex);
+        return cache_map.empty();
+    }
+
+    // Clear the entire cache
+    void clear() {
+        std::lock_guard<std::mutex> lock(cache_mutex);
+        cache_order.clear();
+        cache_map.clear();
+    }
+
+    // Get current cache capacity
+    size_t get_capacity() const {
+        return capacity;
+    }
+};
+
+#endif // THREAD_SAFE_LRU_CACHE_H

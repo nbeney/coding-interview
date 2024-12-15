@@ -1,0 +1,128 @@
+#ifndef BLOCKING_QUEUE_H
+#define BLOCKING_QUEUE_H
+
+#include <vector>
+#include <mutex>
+#include <condition_variable>
+#include <stdexcept>
+#include <chrono>
+#include <optional>
+#include <algorithm>
+
+template <typename T>
+class BlockingQueue {
+private:
+    std::vector<T> queue;
+    size_t capacity;
+    size_t front_index = 0;
+    size_t size_count = 0;
+    std::mutex mtx;
+    std::condition_variable not_full;
+    std::condition_variable not_empty;
+
+public:
+    // Constructor with explicit capacity
+    explicit BlockingQueue(size_t max_capacity) : queue(max_capacity), capacity(max_capacity) {
+        if (capacity == 0) {
+            throw std::invalid_argument("Capacity must be greater than zero");
+        }
+    }
+
+    // Blocking put - waits until space is available
+    void put(const T& item) {
+        std::unique_lock<std::mutex> lock(mtx);
+        
+        // Wait while the queue is full
+        not_full.wait(lock, [this]() { return size_count < capacity; });
+        
+        // Calculate the index to insert
+        size_t insert_index = (front_index + size_count) % capacity;
+        queue[insert_index] = item;
+        size_count++;
+        
+        // Notify that an item is available
+        not_empty.notify_one();
+    }
+
+    // Timed blocking put - waits up to a specified duration
+    bool put(const T& item, const std::chrono::milliseconds& timeout) {
+        std::unique_lock<std::mutex> lock(mtx);
+        
+        // Wait while the queue is full, with a timeout
+        bool result = not_full.wait_for(lock, timeout, [this]() { return size_count < capacity; });
+        
+        if (result) {
+            // Calculate the index to insert
+            size_t insert_index = (front_index + size_count) % capacity;
+            queue[insert_index] = item;
+            size_count++;
+            
+            not_empty.notify_one();
+            return true;
+        }
+        
+        return false;  // Timeout occurred
+    }
+
+    // Blocking take - waits until an item is available
+    T take() {
+        std::unique_lock<std::mutex> lock(mtx);
+        
+        // Wait while the queue is empty
+        not_empty.wait(lock, [this]() { return size_count > 0; });
+        
+        // Get the item from the front
+        T item = std::move(queue[front_index]);
+        
+        // Update front index and size
+        front_index = (front_index + 1) % capacity;
+        size_count--;
+        
+        // Notify that space is now available
+        not_full.notify_one();
+        
+        return item;
+    }
+
+    // Timed blocking take - waits up to a specified duration
+    std::optional<T> take(const std::chrono::milliseconds& timeout) {
+        std::unique_lock<std::mutex> lock(mtx);
+        
+        // Wait while the queue is empty, with a timeout
+        bool result = not_empty.wait_for(lock, timeout, [this]() { return size_count > 0; });
+        
+        if (result) {
+            // Get the item from the front
+            T item = std::move(queue[front_index]);
+            
+            // Update front index and size
+            front_index = (front_index + 1) % capacity;
+            size_count--;
+            
+            not_full.notify_one();
+            return item;
+        }
+        
+        return std::nullopt;  // Timeout occurred
+    }
+
+    // Non-blocking size check
+    size_t size() const {
+        std::lock_guard<std::mutex> lock(mtx);
+        return size_count;
+    }
+
+    // Non-blocking is empty check
+    bool empty() const {
+        std::lock_guard<std::mutex> lock(mtx);
+        return size_count == 0;
+    }
+
+    // Non-blocking is full check
+    bool full() const {
+        std::lock_guard<std::mutex> lock(mtx);
+        return size_count >= capacity;
+    }
+};
+
+#endif // BLOCKING_QUEUE_H

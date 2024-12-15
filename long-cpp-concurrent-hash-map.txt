@@ -1,0 +1,50 @@
+// concurrent_hash_map.h
+#ifndef CONCURRENT_HASH_MAP_H
+#include <vector>
+#include <list>
+#include <shared_mutex>
+#include <atomic>
+#include <optional>
+#include <functional>
+
+template <typename K, typename V, typename Hash = std::hash<K>>
+class ConcurrentHashMap {
+private:
+    // Number of segments/buckets
+    static const int DEFAULT_INITIAL_CAPACITY = 16;
+    static const int DEFAULT_CONCURRENCY_LEVEL = 16;
+
+    // Internal bucket structure
+    struct Bucket {
+        std::list<std::pair<K, V>> entries;
+        mutable std::shared_mutex mutex;
+    };
+
+    std::vector<Bucket> buckets;
+    std::atomic<size_t> size{0};
+
+    // Configurable hash function
+    [[no_unique_address]] Hash hasher;
+    size_t concurrencyLevel;
+
+    // Select bucket based on key's hash
+    size_t getBucketIndex(const K& key) const {
+        return hasher(key) % buckets.size();
+    }
+
+public:
+    // Constructor with custom hash function support
+    ConcurrentHashMap(
+        size_t initialCapacity = DEFAULT_INITIAL_CAPACITY, 
+        size_t concurrencyLevel = DEFAULT_CONCURRENCY_LEVEL,
+        const Hash& hashFunc = Hash()
+    ) : 
+        buckets(std::max(initialCapacity, concurrencyLevel)), 
+        hasher(hashFunc),
+        concurrencyLevel(concurrencyLevel) {}
+
+    // Rest of the implementation remains the same as in the previous version
+    // ... (put, get, remove, getSize, isEmpty methods)
+};
+
+#endif // CONCURRENT_HASH_MAP_H

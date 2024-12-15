@@ -1,0 +1,127 @@
+#ifndef RWLOCK_H
+#define RWLOCK_H
+
+#include <mutex>
+#include <condition_variable>
+#include <thread>
+
+class RWLock {
+private:
+    mutable std::mutex mutex_;
+    std::condition_variable read_cv_;
+    std::condition_variable write_cv_;
+    
+    // Number of active readers
+    int readers_count_ = 0;
+    
+    // Number of waiting writers
+    int writers_waiting_ = 0;
+    
+    // Flag to indicate if a writer is active
+    bool writer_active_ = false;
+
+public:
+    // Read lock (shared)
+    void read_lock() {
+        std::unique_lock<std::mutex> lock(mutex_);
+        
+        // Wait if there's an active writer or writers are waiting 
+        // (to prevent writer starvation)
+        read_cv_.wait(lock, [this]() { 
+            return !writer_active_ && writers_waiting_ == 0; 
+        });
+        
+        // Increment reader count
+        ++readers_count_;
+    }
+
+    // Read unlock
+    void read_unlock() {
+        std::unique_lock<std::mutex> lock(mutex_);
+        
+        // Decrement reader count
+        --readers_count_;
+        
+        // If this was the last reader, notify waiting writers
+        if (readers_count_ == 0) {
+            write_cv_.notify_one();
+        }
+    }
+
+    // Write lock (exclusive)
+    void write_lock() {
+        std::unique_lock<std::mutex> lock(mutex_);
+        
+        // Increment waiting writers
+        ++writers_waiting_;
+        
+        // Wait if there are active readers or an active writer
+        write_cv_.wait(lock, [this]() { 
+            return readers_count_ == 0 && !writer_active_; 
+        });
+        
+        // Mark writer as active and decrement waiting writers
+        writer_active_ = true;
+        --writers_waiting_;
+    }
+
+    // Write unlock
+    void write_unlock() {
+        std::unique_lock<std::mutex> lock(mutex_);
+        
+        // Mark writer as inactive
+        writer_active_ = false;
+        
+        // Prioritize writers over readers if any are waiting
+        if (writers_waiting_ > 0) {
+            write_cv_.notify_one();
+        } else {
+            // Otherwise, notify all readers
+            read_cv_.notify_all();
+        }
+    }
+
+    // RAII wrappers for exception-safe locking
+    class ReadLock {
+    private:
+        RWLock& rwlock_;
+    public:
+        explicit ReadLock(RWLock& rwlock) : rwlock_(rwlock) {
+            rwlock_.read_lock();
+        }
+        ~ReadLock() {
+            rwlock_.read_unlock();
+        }
+    };
+
+    class WriteLock {
+    private:
+        RWLock& rwlock_;
+    public:
+        explicit WriteLock(RWLock& rwlock) : rwlock_(rwlock) {
+            rwlock_.write_lock();
+        }
+        ~WriteLock() {
+            rwlock_.write_unlock();
+        }
+    };
+};
+
+#endif // RWLOCK_H
+
+/* USAGE:
+
+RWLock rwlock;
+
+// Reading (multiple threads can read simultaneously)
+{
+    RWLock::ReadLock read(rwlock);
+    // Read shared data
+}
+
+// Writing (exclusive access)
+{
+    RWLock::WriteLock write(rwlock);
+    // Modify shared data
+}
+*/
