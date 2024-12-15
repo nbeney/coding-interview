@@ -4,7 +4,7 @@
 
 ## Example
 
-Here is a sample page with a quiz containing three questions.
+Here is a sample page with a quiz containing three questions. The questions and the answers could contain embedded HTML elements if required.
 
 ```html
 <!DOCTYPE html>
