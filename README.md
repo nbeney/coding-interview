@@ -83,9 +83,9 @@ To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the *Close* button, or c
 
 ## Files
 
-* _index.html_ - List of all the sample quizzes
-* _quiz-*.html_ - Sample quizzes
-* _styles/shortcuts.css_ - Styling for the keyboard shortcuts help
-* _styles/quiz.css_ - Styling for the questions & answers
-* _scripts/shortcuts.js_ - Code for binding keyboard shortcuts to actions
-* _scripts/quiz.js_ - Code for the custom tags 
+* `index.html` - List of all the sample quizzes
+* `quiz-*.html` - Sample quizzes
+* `styles/shortcuts.css` - Styling for the keyboard shortcuts help
+* `styles/quiz.css` - Styling for the questions & answers
+* `scripts/shortcuts.js` - Code for binding keyboard shortcuts to actions
+* `scripts/quiz.js` - Code for the custom tags 
