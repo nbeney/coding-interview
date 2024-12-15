@@ -4,6 +4,8 @@
 
 ## Example
 
+Here is a sample page with a quiz containing three questions.
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +52,11 @@
 </html>
 ```
 
+Here is how the page looks after the second question has been expanded (using the mouse or the right arrow key <kbd>→</kbd>) to reveal its answer.
+
 ![Sample quiz](screenshot-sample.png)
+
+There are keyboard shortcuts for navigating through the questions and expanding or collapsing them.
 
 To show the help for the keyboard shortcuts, press <kbd>?</kbd>.
 
