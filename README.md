@@ -24,18 +24,18 @@ Here is a sample page with a quiz containing three questions. The questions and 
 
     <my-quiz>
         <my-pair>
-            <my-question>First sample question</my-question>
-            <my-answer>First sample answer</my-answer>
+            <my-question>First sample question (can contain HTML)</my-question>
+            <my-answer>First sample answer (can contain HTML)</my-answer>
         </my-pair>
 
         <my-pair>
-            <my-question>Second sample question</my-question>
-            <my-answer>Second sample answer</my-answer>
+            <my-question>Second sample question (can contain HTML)</my-question>
+            <my-answer>Second sample answer (can contain HTML)</my-answer>
         </my-pair>
 
         <my-pair>
-            <my-question>Third sample question</my-question>
-            <my-answer>Third sample answer</my-answer>
+            <my-question>Third sample question (can contain HTML)</my-question>
+            <my-answer>Third sample answer (can contain HTML)</my-answer>
         </my-pair>
     </my-quiz>
 </body>
