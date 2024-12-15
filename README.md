@@ -78,8 +78,8 @@ To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the *Close* button, or c
 </my-pair>
 ```
 
-> [!IMPORTANT]
-> Ensure that the page includes the two CSS files (`shortcuts.css` and `quiz.css`) in `<head>` and the two script files (`shortcuts.js` and `quiz.js`) after `<body>`. `shortcuts.js` must be included before `quiz.js`.
+> [!NOTE]
+> Ensure that the page includes the two CSS files (`shortcuts.css` and `quiz.css`) in `<head>` and the two JS files (`shortcuts.js` and `quiz.js`) after `<body>`. `shortcuts.js` must be included before `quiz.js`.
 
 ## Files
 
