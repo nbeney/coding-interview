@@ -21,7 +21,7 @@ Plain HTML, CSS, and Javascript is used as it makes it easy to create, modify an
 ...
 ```
 
-Each page must include a couple of Javascript files and link to a couple of CSS stylesheets. The scripts add Bootstrap classes to the custom HTML elements to convert each pair into a card showing the question and revealing the answer when it is clicked. The lists can also be navigated and the answers expanded/collapsed using keyboard shortcuts. A complete example is shown in the next section. Bootstrap is used to make the pages responsive and for its clean look.
+Each page must include a couple of Javascript files and link to a couple of CSS stylesheets. The scripts add Bootstrap classes to the custom HTML elements to convert each pair into a card showing the question and revealing the answer when it is clicked. The lists can also be navigated and the answers expanded/collapsed using keyboard shortcuts. The next section provides a complete example. Bootstrap is used to make the pages responsive and for its clean look.
 
 Lists can also easily be created using some form of AI like ChatGPT or an API (see the `ai-generation/` folder for a Python example). This provides a cheap way to add new questions or totally renew our questions when we feel that the agents start prepping their candidates about our questions.
 
