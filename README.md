@@ -108,8 +108,8 @@ To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the `Close` button, or c
 
 * `index.html` - List of all the sample quizzes
 * `quiz-*.html` - Sample quizzes
-* `styles/shortcuts.css` - Styling for the keyboard shortcuts help
-* `styles/quiz.css` - Styling for the questions & answers
+* `styles/shortcuts.css` - Stylesheet for the keyboard shortcuts help
+* `styles/quiz.css` - Stylesheet for the questions & answers
 * `scripts/shortcuts.js` - Code for binding keyboard shortcuts to actions
 * `scripts/quiz.js` - Code for the custom tags 
 * `ai-generation/` - Contains a Python script to generate quizzes automatically using the Anthropic API (Claude AI)
