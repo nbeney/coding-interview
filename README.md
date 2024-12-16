@@ -1,6 +1,6 @@
 # coding-interview
 
-## Intro
+## Introduction
 
 The goal of this repository is to capture lists of interview questions with their responses. These lists are meant to be used as a guide during phone screening interviews, etc.
 
