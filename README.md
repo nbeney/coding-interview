@@ -2,7 +2,30 @@
 
 ## Intro
 
-## Example
+The goal of this repository is to capture lists of interview questions with their responses. These lists are meant to be used as a guide during phone screening interviews, etc.
+
+Plain HTML, CSS, and Javascript is used as it makes it easy to create, modify and view these lists without having to rely on tools like node.js or web servers, etc. In order to keep the markup very simple and easily editable by hand, we have defined a set of custom HTML elements to capture question/answer pairs. The core of each list looks like this:
+
+```html
+...
+
+<my-quiz>
+    <my-pair>
+        <my-question>Question text here (can contain HTML)</my-question>
+        <my-answer>Answer text here (can contain HTML)</my-answer>
+    </my-pair>
+
+    <!-- More question/answer pairs -->
+</my-quiz>
+
+...
+```
+
+Each page must include a couple of Javascript files and link to a couple of CSS stylesheets. The scripts add Bootstrap classes to the custom HTML elements to convert each pair into a card showing the question and revealing the answer when it is clicked. The lists can also be navigated and the answers expanded/collapsed using keyboard shortcuts. A complete example is shown in the next section. Bootstrap was used to make the pages responsive and for its clean look.
+
+Lists can also easily be created using some form of AI like ChatGPT or an API (see the `ai-generation/` folder for a Python example). This provides a cheap way to add new questions or totally renew our questions when we feel that the agents start prepping their candidates about our questions.
+
+## Complete example
 
 Here is a sample page with a quiz containing three questions. The questions and the answers can contain embedded HTML elements if required.
 
@@ -58,18 +81,18 @@ Here is how the page looks after the second question has been expanded (using th
 
 There are keyboard shortcuts for navigating through the questions and expanding or collapsing them.
 
-To show the help for the keyboard shortcuts, press <kbd>?</kbd>.
+To show the list of keyboard shortcuts, press <kbd>?</kbd>.
 
-To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the *Close* button, or click outside the dialog box.
+To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the `Close` button, or click outside the dialog box.
 
 ![Keyboard shortcuts help](screenshots/screenshot-help.png)
 
 ## How to create a new quiz
 
-* Copy an existing quiz (eg `quiz-sample.html`)
-* Modify `<title>` and `<h1>`
-* Delete the content of `<my-quiz>`
-* For each question/answer pair, add a `<my-pair>` containing exactly one `<my-question>` followed by one `<my-answer>`
+* Copy an existing quiz (eg `quiz-sample.html` or the example above).
+* Modify `<title>` and `<h1>`.
+* Delete the content of `<my-quiz>`.
+* For each question/answer pair, add a `<my-pair>` containing exactly one `<my-question>` followed by one `<my-answer>`.
 
 ```html
 <my-pair>
