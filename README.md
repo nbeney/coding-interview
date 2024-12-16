@@ -27,7 +27,7 @@ Lists can also easily be created using some form of AI like ChatGPT or an API (s
 
 ## Complete example
 
-Here is a sample page with a quiz containing three questions. The questions and the answers can contain embedded HTML elements if required.
+Here is a sample page (`quiz-sample.html`) with a quiz containing three questions. The questions and the answers can contain embedded HTML elements if required.
 
 ```html
 <!DOCTYPE html>
@@ -89,7 +89,7 @@ To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the `Close` button, or c
 
 ## How to create a new quiz
 
-* Copy an existing quiz (eg `quiz-sample.html` or the example above).
+* Copy an existing quiz (eg `quiz-sample.html`).
 * Modify `<title>` and `<h1>`.
 * Delete the content of `<my-quiz>`.
 * For each question/answer pair, add a `<my-pair>` containing exactly one `<my-question>` followed by one `<my-answer>`.
