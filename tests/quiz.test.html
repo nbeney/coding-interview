@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Quiz Tests</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.20.0.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture">
+        <my-quiz>
+            <my-pair>
+                <my-question>Question 1</my-question>
+                <my-answer>Answer 1</my-answer>
+            </my-pair>
+            <my-pair>
+                <my-question>Question 2</my-question>
+                <my-answer>Answer 2</my-answer>
+            </my-pair>
+            <my-pair>
+                <my-question>Question 3</my-question>
+                <my-answer>Answer 3</my-answer>
+            </my-pair>
+        </my-quiz>
+    </div>
+
+    <!-- Source files -->
+    <script src="../scripts/shortcuts.js"></script>
+    <script src="../scripts/quiz.js"></script>
+
+    <!-- QUnit -->
+    <script src="https://code.jquery.com/qunit/qunit-2.20.0.js"></script>
+
+    <!-- Test code -->
+    <script>
+        QUnit.test('expandAll shows all answers', function (assert) {
+            expandAll();
+            const answers = document.querySelectorAll('my-answer');
+            for (let i = 0; i < answers.length; i++) {
+                assert.equal(answers[i].style.display, 'block', `Answer ${i + 1} should be visible`);
+            }
+        });
+
+        QUnit.test('collapseAll hides all answers', function (assert) {
+            collapseAll();
+            const answers = document.querySelectorAll('my-answer');
+            for (let i = 0; i < answers.length; i++) {
+                assert.equal(answers[i].style.display, 'none', `Answer ${i + 1} should be hidden`);
+            }
+        });
+
+        QUnit.test('toggleAll toggles visibility of all answers', function (assert) {
+            // Start with all collapsed
+            collapseAll();
+
+            // First toggle should show all
+            toggleAll();
+            let answers = document.querySelectorAll('my-answer');
+            for (let i = 0; i < answers.length; i++) {
+                assert.equal(answers[i].style.display, 'block', `Answer ${i + 1} should be visible after first toggle`);
+            }
+
+            // Second toggle should hide all
+            toggleAll();
+            answers = document.querySelectorAll('my-answer');
+            for (let i = 0; i < answers.length; i++) {
+                assert.equal(answers[i].style.display, 'none', `Answer ${i + 1} should be hidden after second toggle`);
+            }
+        });
+
+        QUnit.test('moveToNext focuses next pair', function (assert) {
+            const pairs = document.querySelectorAll('my-pair');
+            setFocus(pairs[0]);
+
+            moveToNext();
+            assert.equal(focusedPair, pairs[1], 'Second pair should be focused');
+            assert.true(pairs[1].classList.contains('focused'), 'Second pair should have focused class');
+        });
+
+        QUnit.test('moveToPrevious focuses previous pair', function (assert) {
+            const pairs = document.querySelectorAll('my-pair');
+            setFocus(pairs[1]);
+
+            moveToPrevious();
+            assert.equal(focusedPair, pairs[0], 'First pair should be focused');
+            assert.true(pairs[0].classList.contains('focused'), 'First pair should have focused class');
+        });
+
+        QUnit.test('expandCurrent shows answer of focused pair', function (assert) {
+            const pairs = document.querySelectorAll('my-pair');
+            setFocus(pairs[0]);
+
+            expandCurrent();
+            assert.equal(pairs[0].querySelector('my-answer').style.display, 'block', 'Answer 1 should be visible');
+        });
+
+        QUnit.test('collapseCurrent hides answer of focused pair', function (assert) {
+            const pairs = document.querySelectorAll('my-pair');
+            setFocus(pairs[0]);
+
+            collapseCurrent();
+            assert.equal(pairs[0].querySelector('my-answer').style.display, 'none', 'Answer 1 should be hidden');
+        });
+    </script>
+</body>
+
+</html>

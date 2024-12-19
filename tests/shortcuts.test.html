@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Shortcuts Tests</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.20.0.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <!-- Source files -->
+    <script src="../scripts/shortcuts.js"></script>
+
+    <!-- QUnit -->
+    <script src="https://code.jquery.com/qunit/qunit-2.20.0.js"></script>
+
+    <!-- Test code -->
+    <script>
+        QUnit.test('bindKey registers new shortcut', function (assert) {
+            const callback = function () { };
+            bindKey('KeyA', callback, 'Test Action');
+
+            const shortcut = keyboardShortcuts.get('KeyA');
+            assert.ok(shortcut, 'Shortcut should be registered');
+            assert.equal(shortcut.callback, callback, 'Callback should be stored');
+            assert.equal(shortcut.description, 'Test Action', 'Description should be stored');
+        });
+
+        QUnit.test('keyboard shortcuts dialog opens and closes', function (assert) {
+            showKeyboardShortcutsDialog();
+
+            let dialog = document.querySelector('.shortcut-dialog');
+            let overlay = document.querySelector('.shortcut-overlay');
+            assert.ok(dialog, 'Dialog should be visible');
+            assert.ok(overlay, 'Overlay should be visible');
+
+            closeKeyboardShortcutsDialog();
+
+            dialog = document.querySelector('.shortcut-dialog');
+            overlay = document.querySelector('.shortcut-overlay');
+            assert.notOk(dialog, 'Dialog should be removed');
+            assert.notOk(overlay, 'Overlay should be removed');
+        });
+
+        QUnit.test('getPrettyKeyName converts key codes correctly', function (assert) {
+            assert.equal(getPrettyKeyName('ArrowDown'), '↓', 'ArrowDown should convert to ↓');
+            assert.equal(getPrettyKeyName('ArrowUp'), '↑', 'ArrowUp should convert to ↑');
+            assert.equal(getPrettyKeyName('KeyA'), 'A', 'KeyA should convert to A');
+            assert.equal(getPrettyKeyName('Slash'), '?', 'Slash should convert to ?');
+        });
+
+        QUnit.test('shortcuts do trigger without modifiers', function (assert) {
+            let called = false;
+            bindKey('KeyA', () => { called = true; });
+
+            const event = new KeyboardEvent('keydown', {
+                code: 'KeyA'
+            });
+            document.dispatchEvent(event);
+
+            assert.ok(called, 'Shortcut should trigger without modifier key');
+        });
+
+        QUnit.test('shortcuts do not trigger with modifiers', function (assert) {
+            let called = false;
+            bindKey('KeyA', () => { called = true; });
+
+            const event = new KeyboardEvent('keydown', {
+                code: 'KeyA',
+                ctrlKey: true
+            });
+            document.dispatchEvent(event);
+
+            assert.notOk(called, 'Shortcut should not trigger with modifier key');
+        });
+
+        QUnit.test('clicking on overlay closes dialog', function (assert) {
+            showKeyboardShortcutsDialog();
+
+            const overlay = document.querySelector('.shortcut-overlay');
+            overlay.click();
+
+            const dialog = document.querySelector('.shortcut-dialog');
+            assert.notOk(dialog, 'Dialog should be removed');
+        });
+
+        QUnit.test('pressing escape key closes dialog', function (assert) {
+            showKeyboardShortcutsDialog();
+
+            const event = new KeyboardEvent('keydown', {
+                code: 'Escape'
+            });
+            document.dispatchEvent(event);
+
+            const dialog = document.querySelector('.shortcut-dialog');
+            assert.notOk(dialog, 'Dialog should be removed');
+        });
+    </script>
+</body>
+
+</html>

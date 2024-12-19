@@ -4,7 +4,7 @@
 
 The goal of this repository is to capture lists of interview questions with their responses. These lists are meant to be used as a guide during phone screening interviews, etc.
 
-Plain HTML, CSS, and Javascript is used as it makes it easy to create, modify and view these lists without having to rely on tools like node.js or web servers, etc. In order to keep the markup very simple and easily editable by hand, we have defined a set of custom HTML elements to capture question/answer pairs. The core of each list looks like this:
+Plain HTML, CSS, and Javascript is used as it makes it easy to create, modify and view these lists without having to rely on tools like node.js or web servers, etc. The unit tests can also be run directly in the browser. In order to keep the markup very simple and easily editable by hand, we have defined a set of custom HTML elements to capture question/answer pairs. The core of each list looks like this:
 
 ```html
 ...
@@ -112,4 +112,5 @@ To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the `Close` button, or c
 * `styles/quiz.css` - Stylesheet for the questions & answers
 * `scripts/shortcuts.js` - Code for binding keyboard shortcuts to actions
 * `scripts/quiz.js` - Code for the custom tags 
+* `tests/*.html` - Unit tests
 * `ai-generation/` - Contains a Python script to generate quizzes automatically using the Anthropic API (Claude AI)
