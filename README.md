@@ -1,3 +1,5 @@
+[![Tested with QUnit](https://qunitjs.com/testedwith.svg)](https://qunitjs.com/)
+
 # coding-interview
 
 ## Introduction
