@@ -1,6 +1,6 @@
-[![Tested with QUnit](https://qunitjs.com/testedwith.svg)](https://qunitjs.com/)
-
 # coding-interview
+
+[![Tested with QUnit](https://qunitjs.com/testedwith.svg)](https://qunitjs.com/)
 
 ## Introduction
 
@@ -114,5 +114,5 @@ To hide it, press <kbd>?</kbd> or <kbd>Esc</kbd>, click the `Close` button, or c
 * `styles/quiz.css` - Stylesheet for the questions & answers
 * `scripts/shortcuts.js` - Code for binding keyboard shortcuts to actions
 * `scripts/quiz.js` - Code for the custom tags 
-* `tests/*.html` - Unit tests
+* `tests/*.html` - Unit tests [![Tested with QUnit](https://qunitjs.com/testedwith.svg)](https://qunitjs.com/)
 * `ai-generation/` - Contains a Python script to generate quizzes automatically using the Anthropic API (Claude AI)
